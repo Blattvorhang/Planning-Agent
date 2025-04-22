@@ -40,13 +40,15 @@ async def main():
         max_retries=2,
     )
     tools = {
-           "math": {
-            "command": "python",
-            # Replace with absolute path to your math_server.py file
-            "args": ["tools/math_server.py"],
-            "transport": "stdio",
+            "arxiv-mcp-server": {
+            "command": "uv",
+            "args": [
+                "tool",
+                "run",
+                "tools/arxiv-mcp-server",
+                "--storage-path", "./papers"
+            ]
         }
-            
 
     }
 
@@ -74,7 +76,7 @@ async def main():
 
          # 示例输入
         input_state = {
-            "user_input": ["回答我2*3的结果"],
+            "user_input": ["我要学习TRansformer的相关知识， 希望你能推荐一些文献"],
             "learning_goal": [],
             "feedback": [],
             "learning_plan": [],

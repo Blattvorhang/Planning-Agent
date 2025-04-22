@@ -30,10 +30,12 @@ class PlannerAgent(ReActAgent):
         else:
             # 初次生成学习目标和学习计划
             goal_prompt = f"用户输入：{user_input}，请分析用户的意图，给出用户对应的学习目标。"
-            plan_prompt = f"用户输入：{user_input}，请回答用户输入的问题"
+            plan_prompt = f"用户输入：{user_input}，如果用户输入了问题，请回答用户输入的问题, 并给出详细的学习计划。如果用户输入的是学习目标，请给出详细的学习计划。"
             goal_result = await self.agent.ainvoke({"messages": goal_prompt})
             plan_result = await self.agent.ainvoke({"messages": plan_prompt})
             state['learning_goal'] = [goal_result['messages'][1].content]
-            state['learning_plan'] = [plan_result['messages'][1].content]
-        print(f"Planner Agent - learning_goal: {state['learning_goal']}, learning_plan: {plan_result}")
+            state['learning_plan'] = [plan_result['messages'][-1].content]
+        print(f"Planner Agent - learning_goal: {state['learning_goal']}")
+        for i in plan_result['messages']:
+            print(f"\nPlanner Agent - learning_plan: {i}")
         return state
