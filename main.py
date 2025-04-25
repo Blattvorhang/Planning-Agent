@@ -16,6 +16,9 @@ import asyncio
 # 修改路由函数
 def route(state: State) -> Literal["evaluator", "examiner"]:
     # 提取评估结果的 content 部分
+    if len(state["evaluation_result"]) > 2:
+        print("\n exceed limit--------goto:examiner")
+        return "examiner"
     evaluation_result = state['evaluation_result'][0].content.strip() if state['evaluation_result'] else ""
     if evaluation_result != "OK":
         print("\n --------goto:evaluator")
@@ -53,7 +56,7 @@ async def main():
     }
 
     async with PlannerAgent(llm, tools) as planner, \
-               EvaluatorAgent(llm, tools) as evaluator, \
+               EvaluatorAgent(llm) as evaluator, \
                ExaminerAgent(llm, tools) as examiner:
           # 构建状态图
         graph_builder = StateGraph(State)
@@ -76,7 +79,7 @@ async def main():
 
          # 示例输入
         input_state = {
-            "user_input": ["我要学习TRansformer的相关知识， 希望你能推荐一些文献"],
+            "user_input": ["我要学习LLM推荐系统的知识"],
             "learning_goal": [],
             "feedback": [],
             "learning_plan": [],
@@ -91,7 +94,6 @@ async def main():
 
 
 if __name__ == "__main__":
-   
     asyncio.run(main())
     
   

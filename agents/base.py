@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import TypedDict, Optional
 from langgraph.graph.message import add_messages
 from langchain_openai import AzureChatOpenAI
 from typing_extensions import Annotated
@@ -17,7 +17,7 @@ class State(TypedDict):
 
 
 class ReActAgent(ABC):
-    def __init__(self, model:  AzureChatOpenAI, server_config: dict):
+    def __init__(self, model:  AzureChatOpenAI, server_config: Optional[dict] = None):
         self.model = model
         self.server_config = server_config
         self.client = None
@@ -25,6 +25,7 @@ class ReActAgent(ABC):
 
     async def start(self):
         self.client = await MultiServerMCPClient(self.server_config).__aenter__()
+        
         self.agent = create_react_agent(
             self.model,
             self.client.get_tools()
