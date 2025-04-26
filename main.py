@@ -51,7 +51,13 @@ async def main():
                 "tools/arxiv-mcp-server",
                 "--storage-path", "./papers"
             ]
-        }
+        },
+            "rag-mcp-server":{
+                "command": "python",
+                # Replace with absolute path to your math_server.py file
+                "args": ["D:\\BIT_Graduate\\Agent\\LangGraph\\Planning-Agent\\tools\\rag-mcp-server\\rag_server.py"],
+                "transport": "stdio",
+            }
 
     }
 
@@ -79,7 +85,8 @@ async def main():
 
          # 示例输入
         input_state = {
-            "user_input": ["我要学习LLM推荐系统的知识"],
+            # "user_input": ["我要学习LLM推荐系统的知识"],
+            "user_input": ["请你回答Python中函数的定义"],
             "learning_goal": [],
             "feedback": [],
             "learning_plan": [],
