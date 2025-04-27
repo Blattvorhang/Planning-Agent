@@ -1,4 +1,5 @@
 import os
+import json
 from langgraph.graph import StateGraph, START, END
 from langchain_openai import AzureChatOpenAI
 from dotenv import load_dotenv
@@ -39,18 +40,11 @@ async def main():
         timeout=None,
         max_retries=2,
     )
-    tools = {
-        "arxiv-mcp-server": {
-            "command": "uv",
-            "args": [
-                "tool",
-                "run",
-                "tools/arxiv-mcp-server",
-                "--storage-path",
-                "./papers",
-            ],
-        }
-    }
+    
+    # Load tools from JSON file
+    with open('tools/mcp.json', 'r') as f:
+        tools = json.load(f)['mcpServers']
+
 
     async with PlannerAgent(llm, tools) as planner, \
                EvaluatorAgent(llm, tools) as evaluator, \
