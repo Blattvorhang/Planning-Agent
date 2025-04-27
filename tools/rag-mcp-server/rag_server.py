@@ -1,5 +1,5 @@
 from mcp.server.fastmcp import FastMCP
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 import os
 from openai import AzureOpenAI
 from langchain_core.embeddings import Embeddings
@@ -14,14 +14,13 @@ endpoint = "https://20242-m9bfmsab-eastus2.cognitiveservices.azure.com/"
 model_name = "text-embedding-3-small"
 deployment = "text-embedding-3-small"
 api_version = "2024-12-01-preview"
-key=os.getenv("API_KEY")
+
 client = AzureOpenAI(
     api_version=api_version,
     azure_endpoint=endpoint,
-    # api_key=key,
-    # 得手动填一下
-    api_key="your API_KEY",
+    api_key=os.getenv("API_KEY"),
 )
+
 
 # 自定义嵌入类
 class CustomAzureOpenAIEmbeddings(Embeddings):
@@ -38,6 +37,7 @@ class CustomAzureOpenAIEmbeddings(Embeddings):
 
     def embed_query(self, text):
         return self.embed_documents([text])[0]
+
 
 # 初始化嵌入模型
 embedding_model = CustomAzureOpenAIEmbeddings(client, deployment)
@@ -58,6 +58,7 @@ async def retrieve(query: str) -> str:
     context = []
     context.append(text)
     return "\n---\n".join(context)
+
 
 if __name__ == "__main__":
     # Initialize and run the server

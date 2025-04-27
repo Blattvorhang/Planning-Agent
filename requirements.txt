@@ -1,6 +1,7 @@
 matplotlib
 langchain
 langchain-openai
+langchain-community
 langgraph
 mcp
 langchain-mcp-adapters
