@@ -11,6 +11,7 @@ If you forgot to add the parameter `--recursive`, you should run
 git submodule update --init --recursive
 ```
 
+Then install required packages:
 ```bash
 pip install -r requirements.txt
 uv pip install -e "./tools/arxiv-mcp-server/[test]"
