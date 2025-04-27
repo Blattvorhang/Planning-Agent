@@ -9,6 +9,13 @@
                 "--storage-path",
                 "./papers"
             ]
+        },
+        "rag-mcp-server": {
+            "command": "python",
+            "args": [
+                "D:\\BIT_Graduate\\Agent\\LangGraph\\Planning-Agent\\tools\\rag-mcp-server\\rag_server.py"
+            ],
+            "transport": "stdio"
         }
     }
 } 
