@@ -23,7 +23,7 @@ def route(state: State) -> Literal["evaluator", "examiner"]:
     else:
         print("\n --------goto:examiner")
         return "examiner"
-    
+
 
 async def main():
     load_dotenv()
@@ -40,22 +40,22 @@ async def main():
         max_retries=2,
     )
     tools = {
-            "arxiv-mcp-server": {
+        "arxiv-mcp-server": {
             "command": "uv",
             "args": [
                 "tool",
                 "run",
                 "tools/arxiv-mcp-server",
-                "--storage-path", "./papers"
-            ]
+                "--storage-path",
+                "./papers",
+            ],
         }
-
     }
 
     async with PlannerAgent(llm, tools) as planner, \
                EvaluatorAgent(llm, tools) as evaluator, \
                ExaminerAgent(llm, tools) as examiner:
-          # 构建状态图
+        # 构建状态图
         graph_builder = StateGraph(State)
 
         # 添加节点
@@ -74,7 +74,7 @@ async def main():
         # 编译图
         graph = graph_builder.compile()
 
-         # 示例输入
+        # 示例输入
         input_state = {
             "user_input": ["我要学习TRansformer的相关知识， 希望你能推荐一些文献"],
             "learning_goal": [],
@@ -87,13 +87,8 @@ async def main():
         # 异步运行图
         async for event in graph.astream(input_state, config, stream_mode="values"):
             pass 
-    
 
 
 if __name__ == "__main__":
    
     asyncio.run(main())
-    
-  
-   
-
