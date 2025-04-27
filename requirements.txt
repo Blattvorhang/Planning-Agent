@@ -1,0 +1,8 @@
+matplotlib
+langchain
+langchain-openai
+langgraph
+mcp
+langchain-mcp-adapters
+python-dotenv
+uv
