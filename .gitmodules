@@ -1,0 +1,3 @@
+[submodule "tools/arxiv-mcp-server"]
+	path = tools/arxiv-mcp-server
+	url = https://github.com/blazickjp/arxiv-mcp-server.git
