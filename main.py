@@ -14,6 +14,7 @@ from agents.evaluator import EvaluatorAgent
 from agents.examiner import ExaminerAgent
 import asyncio
 
+
 # 修改路由函数
 def route(state: State) -> Literal["evaluator", "examiner"]:
     # 提取评估结果的 content 部分
@@ -27,6 +28,14 @@ def route(state: State) -> Literal["evaluator", "examiner"]:
     else:
         print("\n --------goto:examiner")
         return "examiner"
+
+
+def plot_graph(graph: StateGraph):
+    plt.figure(figsize=(10, 6))
+    img_data = graph.draw_mermaid_png()
+    img = plt.imread(io.BytesIO(img_data))
+    plt.imshow(img)
+    plt.show()
 
 
 async def main():
@@ -69,6 +78,7 @@ async def main():
 
         # 编译图
         graph = graph_builder.compile()
+        # plot_graph(graph.get_graph())
 
         # 示例输入
         input_state = {
