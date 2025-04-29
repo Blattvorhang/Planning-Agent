@@ -20,6 +20,8 @@ def build_llm():
         timeout=90,          # 建议加超时
         max_retries=2,
     )
+
+
 def route(state: State) -> Literal["evaluator", "examiner"]:
     # 提取评估结果的 content 部分
     if len(state["evaluation_result"]) > 2:
@@ -32,6 +34,7 @@ def route(state: State) -> Literal["evaluator", "examiner"]:
     else:
         #print("\n --------goto:examiner")
         return "examiner"
+    
     
 async def build_graph():
     llm = build_llm()
