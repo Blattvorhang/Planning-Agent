@@ -49,7 +49,7 @@ OK
 PlannerAgent 输出：
 {learning_plan}"""
         result  = await self.agent.ainvoke({"messages": prompt})
-        state['evaluation_result'] = [result['messages'][1].content]
-        print(f"Evaluator - evaluation_result: {state['evaluation_result']}")
+        state['evaluation_result'] = [result['messages'][-1].content]
+        
         return state
     

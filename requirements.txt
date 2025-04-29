@@ -6,4 +6,5 @@ langgraph
 mcp
 langchain-mcp-adapters
 python-dotenv
+fastapi
 uv

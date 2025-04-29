@@ -43,7 +43,7 @@ The questions should focus on key concepts and important details.
         # 调用模型生成练习题
         result = await self.agent.ainvoke({"messages": prompt})
         # 提取生成的练习题结果
-        exam_questions = result['messages'][1].content
+        exam_questions = result['messages'][-1].content
         state['exam_questions'] = exam_questions
-        print(f"Examiner - exam_questions: {state['exam_questions']}")
+        # print(f"Examiner - exam_questions: {state['exam_questions']}")
         return state
