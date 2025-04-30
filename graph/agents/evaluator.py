@@ -1,4 +1,9 @@
+import logging
+
 from .base import ReActAgent, State    
+
+
+logger = logging.getLogger(__name__)
 
 
 class EvaluatorAgent(ReActAgent):
@@ -43,6 +48,6 @@ PlannerAgent 输出：
 {learning_plan}"""
         result  = await self.agent.ainvoke({"messages": prompt})
         state['evaluation_result'] = [result['messages'][-1].content]
-        
+        logger.info(f"Evaluator - evaluation_result: {state['evaluation_result']}")
         return state
     

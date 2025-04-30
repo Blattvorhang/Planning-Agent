@@ -1,4 +1,8 @@
+import logging
+
 from .base import ReActAgent, State    
+
+logger = logging.getLogger(__name__)
 
 
 class ExaminerAgent(ReActAgent):
@@ -38,5 +42,5 @@ The questions should focus on key concepts and important details.
         # 提取生成的练习题结果
         exam_questions = result['messages'][-1].content
         state['exam_questions'] = exam_questions
-        # print(f"Examiner - exam_questions: {state['exam_questions']}")
+        logger.info(f"Examiner - exam_questions: {state['exam_questions']}")
         return state

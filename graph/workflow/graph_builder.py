@@ -4,6 +4,7 @@ from langgraph.graph import StateGraph, START, END
 import matplotlib.pyplot as plt
 import io
 import json, asyncio
+import logging
 
 from graph.agents.base import State, user_input_handler
 from graph.agents.planner import PlannerAgent
@@ -13,6 +14,8 @@ from graph.agents.investigator import InvestigatorAgent
 
 from typing_extensions import Literal
 from graph.workflow.config import get_settings
+
+logger = logging.getLogger(__name__)
 
 
 def build_llm():
@@ -45,14 +48,14 @@ def route_after_investigator(state: State) -> Literal["investigator", "planner"]
 
 def route_after_planner(state: State) -> Literal["evaluator", "examiner"]:
     if len(state["evaluation_result"]) > 2:
-        #print("\n exceed limit--------goto:examiner")
+        logger.debug("\n exceed limit--------goto:examiner")
         return "examiner"
     evaluation_result = state['evaluation_result'][0].content.strip() if state['evaluation_result'] else ""
     if evaluation_result != "OK":
-        #print("\n --------goto:evaluator")
+        logger.debug("\n --------goto:evaluator")
         return "evaluator"
     else:
-        #print("\n --------goto:examiner")
+        logger.debug("\n --------goto:examiner")
         return "examiner"
 
     

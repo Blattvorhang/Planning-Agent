@@ -1,4 +1,7 @@
+import logging
 from .base import ReActAgent, State
+
+logger = logging.getLogger(__name__)
 
 
 class PlannerAgent(ReActAgent):
@@ -99,9 +102,8 @@ data.fillna(0, inplace=True)  # 填充缺失值为 0
 用户输入：{user_input}"""
             goal_result = await self.agent.ainvoke({"messages": goal_prompt})
             plan_result = await self.agent.ainvoke({"messages": plan_prompt})
-            # print(f"Planner - goal:{goal_result}")
-            # print("\n")
-            # print(f"Planner - plan:{plan_result}")
+            logger.info(f"Planner - goal:{goal_result}")
+            logger.info(f"Planner - plan:{plan_result}")
             state['learning_goal'] = [goal_result['messages'][-1].content]
             state['learning_plan'] = [plan_result['messages'][-1].content]
             

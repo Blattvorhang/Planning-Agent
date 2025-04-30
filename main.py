@@ -2,8 +2,12 @@
 import uvicorn
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
+import logging
 
 from app import svc, learn_router
+
+logging.basicConfig(level=logging.DEBUG)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
