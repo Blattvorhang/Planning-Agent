@@ -5,10 +5,12 @@
 ## Project Overview
 
 **Planning-Agent** is an intelligent learning planning agent system based on **FastAPI**. Its main functions include:
+- Investigating user basic information (user_portrait)
 - Receiving user learning requests (prompt)
-- Generating learning goals (`learning_goal`)
-- Creating learning plans (`learning_plan`)
-- Providing test questions (`exam_questions`)
+- Generating **personalized** learning methodology based on user portrait:
+  - Generating learning goals (`learning_goal`)
+  - Creating learning plans (`learning_plan`)
+  - Providing test questions (`exam_questions`)
 
 ## Environment Setup
 To clone the entire repository, you will need to run the following command:

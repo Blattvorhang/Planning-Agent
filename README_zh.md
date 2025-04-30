@@ -3,10 +3,12 @@
 ## 项目概述
 
 Planning-Agent 是一个基于FastAPI的学习规划智能代理系统，主要功能包括：
+- 了解用户的基础情况(user_portrait)
 - 接收用户的学习请求(prompt)
-- 生成学习目标(learning_goal)
-- 制定学习计划(learning_plan)
-- 提供测试问题(exam_questions)
+- 基于用户画像，生成**个性化**的学习方案
+  - 生成学习目标(learning_goal)
+  - 制定学习计划(learning_plan)
+  - 提供测试问题(exam_questions)
 
 ## 环境配置
 想要克隆这个仓库，需要运行以下命令：

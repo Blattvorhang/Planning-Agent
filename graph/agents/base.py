@@ -4,7 +4,6 @@ from langchain_openai import AzureChatOpenAI
 from typing_extensions import Annotated
 from abc import ABC, abstractmethod
 from langchain_mcp_adapters.client import MultiServerMCPClient
-import asyncio
 from langgraph.prebuilt import create_react_agent
 
 
@@ -18,7 +17,7 @@ class State(TypedDict):
 
 
 class ReActAgent(ABC):
-    def __init__(self, model:  AzureChatOpenAI, server_config: Optional[dict] = None):
+    def __init__(self, model: AzureChatOpenAI, server_config: Optional[dict] = None):
         self.model = model
         self.server_config = server_config
         self.client = None

@@ -1,4 +1,5 @@
 matplotlib
+pydantic
 langchain
 langchain-openai
 langchain-community
@@ -8,3 +9,4 @@ langchain-mcp-adapters
 python-dotenv
 fastapi
 uv
+uvicorn
