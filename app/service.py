@@ -1,6 +1,7 @@
 from .graph_builder import build_graph, State
 import asyncio
 
+
 class LearningService:
     def __init__(self):
         self.graph = None

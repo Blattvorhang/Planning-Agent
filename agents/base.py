@@ -7,6 +7,7 @@ from langchain_mcp_adapters.client import MultiServerMCPClient
 import asyncio
 from langgraph.prebuilt import create_react_agent
 
+
 class State(TypedDict):
     user_input: Annotated[list, add_messages]
     learning_goal: Annotated[list, add_messages]
@@ -46,6 +47,7 @@ class ReActAgent(ABC):
     async def process(self, state: dict) -> dict:
         pass
     
+
 def user_input_handler(state: State):
     # 确保 user_input 以列表形式添加
     if not state.get('user_input'):
