@@ -79,28 +79,29 @@ async def build_graph(plot_graph: bool = False):
 
     graph_builder = StateGraph(State)
     graph_builder.add_node("input", user_input_handler)
-    graph_builder.add_node("investigator", investigator.process)
+    # graph_builder.add_node("investigator", investigator.process)
     graph_builder.add_node("planner", planner.process)
     graph_builder.add_node("evaluator", evaluator.process)
     graph_builder.add_node("examiner", examiner.process)
 
     graph_builder.add_edge(START, "input")
-    graph_builder.add_conditional_edges(
-        "input",
-        route_after_input,
-        {
-            "investigator": "investigator",
-            "planner": "planner"
-        }
-    )
-    graph_builder.add_conditional_edges(
-        "investigator",
-        route_after_investigator,
-        {
-            "investigator": "investigator",
-            "planner": "planner"
-        }
-    )
+    # graph_builder.add_conditional_edges(
+    #     "input",
+    #     route_after_input,
+    #     {
+    #         "investigator": "investigator",
+    #         "planner": "planner"
+    #     }
+    # )
+    # graph_builder.add_conditional_edges(
+    #     "investigator",
+    #     route_after_investigator,
+    #     {
+    #         "investigator": "investigator",
+    #         "planner": "planner"
+    #     }
+    # )
+    graph_builder.add_edge("input", "planner")
     graph_builder.add_conditional_edges(
         "planner",
         route_after_planner,

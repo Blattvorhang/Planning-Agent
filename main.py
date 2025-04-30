@@ -6,7 +6,10 @@ import logging
 
 from app import svc, learn_router
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
+logging.getLogger().handlers[0].setFormatter(
+    logging.Formatter("[%(asctime)s][%(name)s][%(levelname)s] - %(message)s")
+)
 
 
 @asynccontextmanager

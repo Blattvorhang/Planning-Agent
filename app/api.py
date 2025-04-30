@@ -1,10 +1,14 @@
 # app/api.py
 from fastapi import APIRouter, HTTPException, Depends
+
+import logging
+
 from .models import LearnRequest, LearnResponse
 from .deps import get_service    # 引入依赖
 from .deps import svc            # 可选：如果确实想直接用实例也行
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 
 def latest_content(msg_list):
@@ -26,9 +30,12 @@ async def learn(
         learning_goal   = latest_content(state["learning_goal"])
         answer          = latest_content(state["learning_plan"])      # 最后一条计划视为最终回答
         exam_question   = latest_content(state["exam_questions"])
-        print(f"learning_goal:{learning_goal}")
-        print(f"answer:{answer}")
-        print(f"exam_question:{exam_question}")
+
+        logger.info(f"--------------------------------")
+        logger.info(f"learning_goal: \n{learning_goal}")
+        logger.info(f"answer: \n{answer}")
+        logger.info(f"exam_question: \n{exam_question}")
+        logger.info(f"--------------------------------")
         
         return LearnResponse(
             learning_goal=learning_goal,
