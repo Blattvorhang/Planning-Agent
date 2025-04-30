@@ -12,7 +12,7 @@ from graph.agents.examiner import ExaminerAgent
 from graph.agents.investigator import InvestigatorAgent
 
 from typing_extensions import Literal
-from graph.config import get_settings
+from graph.workflow.config import get_settings
 
 
 def build_llm():
@@ -54,19 +54,11 @@ def route_after_planner(state: State) -> Literal["evaluator", "examiner"]:
     else:
         #print("\n --------goto:examiner")
         return "examiner"
-    
-
-def plot_graph(graph: StateGraph):
-    plt.figure(figsize=(10, 6))
-    img_data = graph.draw_mermaid_png()
-    img = plt.imread(io.BytesIO(img_data))
-    plt.imshow(img)
-    plt.show()
 
     
-async def build_graph(plot: bool = False):
+async def build_graph(plot_graph: bool = False):
     llm = build_llm()
-    with open("tools/mcp.json") as f:
+    with open("graph/tools/mcp.json") as f:
         tools = json.load(f)['mcpServers']
 
     investigator = InvestigatorAgent(llm)
@@ -118,11 +110,16 @@ async def build_graph(plot: bool = False):
     graph_builder.add_edge("examiner", END)
 
     graph = graph_builder.compile()
-    if plot:
-        plot_graph(graph.get_graph())
+    
+    if plot_graph:
+        plt.figure(figsize=(10, 10))
+        img_data = graph.get_graph().draw_mermaid_png()
+        img = plt.imread(io.BytesIO(img_data))
+        plt.imshow(img)
+        plt.show()
     
     return graph, (investigator, planner, evaluator, examiner)
 
 
 if __name__ == "__main__":
-    asyncio.run(build_graph(plot=True))
+    asyncio.run(build_graph(plot_graph=True))

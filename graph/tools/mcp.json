@@ -5,7 +5,7 @@
             "args": [
                 "tool",
                 "run",
-                "tools/arxiv-mcp-server",
+                "graph/tools/arxiv-mcp-server",
                 "--storage-path",
                 "./papers"
             ]
@@ -13,7 +13,7 @@
         "rag-mcp-server": {
             "command": "python",
             "args": [
-                "tools/rag-mcp-server/rag_server.py"
+                "graph/tools/rag-mcp-server/rag_server.py"
             ],
             "transport": "stdio"
         }
