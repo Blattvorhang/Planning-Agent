@@ -26,7 +26,7 @@ git submodule update --init --recursive
 Then install required packages:
 ```bash
 pip install -r requirements.txt
-uv pip install -e "./tools/arxiv-mcp-server/[test]"
+uv pip install -e "./graph/tools/arxiv-mcp-server/[test]"
 ```
 
 Finally, you need to fill out your personal LLM API key in the `.env` file, as shown in [`.env.example`](./.env.example).
