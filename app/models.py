@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import Any, Dict, Optional
+from .question import ExamQuestions
 
 
 class UserPortrait(BaseModel):
@@ -15,5 +16,5 @@ class LearnRequest(BaseModel):
 class LearnResponse(BaseModel):
     learning_goal: str
     answer: str
-    exam_questions: str
+    exam_questions: ExamQuestions
     user_portrait: Optional[UserPortrait] = None

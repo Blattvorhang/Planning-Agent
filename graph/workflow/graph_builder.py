@@ -47,7 +47,8 @@ def route_after_investigator(state: State) -> Literal["investigator", "planner"]
 
 
 def route_after_planner(state: State) -> Literal["evaluator", "examiner"]:
-    if len(state["evaluation_result"]) > 2:
+    MAX_EVALUATION_RESULT_COUNT = 1
+    if len(state["evaluation_result"]) > MAX_EVALUATION_RESULT_COUNT:
         logger.debug("\n exceed limit--------goto:examiner")
         return "examiner"
     evaluation_result = state['evaluation_result'][0].content.strip() if state['evaluation_result'] else ""

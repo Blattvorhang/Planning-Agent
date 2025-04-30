@@ -1,6 +1,6 @@
 import logging
 
-from .base import ReActAgent, State    
+from .base import ReActAgent, State
 
 logger = logging.getLogger(__name__)
 
@@ -15,27 +15,39 @@ Given the learning plan/answer: {learning_plan}, your task is to design a small 
 The questions should focus on key concepts and important details.
 
 **Instructions:**
-- Generate mainly **multiple-choice questions** (single-choice or multiple-choice) and **fill-in-the-blank questions**.
+- Generate 3-5 questions in total
+- Generate mainly **multiple-choice questions** (single-choice) and **fill-in-the-blank questions**
 - For multiple-choice questions:
-  - Provide 1 question and 3-5 answer options.
-  - Clearly indicate which option is correct.
+  - Provide 3-5 answer options
+  - Clearly indicate which option is correct
 - For fill-in-the-blank questions:
-  - Provide the question text with a blank space.
-  - Provide the correct answer separately.
-- Questions should be concise, relevant, and cover different aspects of the topic.
-- Do not generate overly complicated or ambiguous questions.
-- Only output the questions and answers, do not add extra explanations unless explicitly requested.
+  - Provide the question text with a blank space (use "_____")
+  - Provide the correct answer
+- Questions should be concise, relevant, and cover different aspects of the topic
+- Do not generate overly complicated or ambiguous questions
 
-**Expected Output Format:**
-1. [Multiple Choice] Question text
-   - A. Option A
-   - B. Option B
-   - C. Option C
-   - D. Option D
-   - Correct Answer: B
+**Required Output Format (JSON):**
+{{
+    "questions": [
+        {{
+            "type": "multiple_choice",
+            "question_text": "Your question here?",
+            "options": [
+                {{"label": "A", "content": "Option A content"}},
+                {{"label": "B", "content": "Option B content"}},
+                {{"label": "C", "content": "Option C content"}}
+            ],
+            "correct_answer": "B"
+        }},
+        {{
+            "type": "fill_in_blank",
+            "question_text": "Question with _____",
+            "correct_answer": "answer"
+        }}
+    ]
+}}
 
-2. [Fill in the Blank] Question text with _____
-   - Correct Answer: [answer]
+Please ensure your response is in valid JSON format and follows the exact structure shown above.
 """
         # 调用模型生成练习题
         result = await self.agent.ainvoke({"messages": prompt})
