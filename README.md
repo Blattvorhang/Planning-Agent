@@ -13,6 +13,31 @@
   - Detailed learning plans (`learning_plan`)
   - Custom test questions (`exam_questions`)
 
+## Agent Graph
+```mermaid
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+        __start__([<p>__start__</p>]):::first
+        input(input)
+        planner(planner)
+        evaluator(evaluator)
+        examiner(examiner)
+        __end__([<p>__end__</p>]):::last
+        __start__ --> input;
+        evaluator --> planner;
+        input --> planner;
+        planner -.-> evaluator;
+        planner -.-> examiner;
+        examiner --> __end__;
+        classDef default fill:#f2f0ff,line-height:1.2
+        classDef first fill-opacity:0
+        classDef last fill:#bfb6fc
+```
+
 ## Environment Setup
 
 ### Backend
