@@ -113,8 +113,8 @@ export default function LearningAgentPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-800/50">
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-b from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-800/50 w-full">
+      <div className="w-full px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-12 max-w-2xl mx-auto">
           <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent leading-tight">
@@ -125,7 +125,7 @@ export default function LearningAgentPage() {
           </p>
         </div>
         
-        <div className="grid gap-8 lg:grid-cols-[2fr_1fr] items-start max-w-[1200px] mx-auto">
+        <div className="grid gap-8 lg:grid-cols-[2fr_1fr] items-start mx-auto max-w-[1200px]">
           {/* Left Column: Chat Interface */}
           <Card className="p-8 shadow-lg bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm">
             <div className="mb-8">

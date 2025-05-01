@@ -30,12 +30,16 @@ export default function RootLayout({
           </div>
           
           {/* Main content */}
-          <Navbar />
-          <main className="relative z-10 pt-16">
-            {children}
+          <div className="mx-auto max-w-full w-full">
+            <Navbar />
+          </div>
+          <main className="relative z-10 pt-16 w-full flex justify-center">
+            <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+              {children}
+            </div>
           </main>
         </div>
       </body>
     </html>
   )
-} 
+}
