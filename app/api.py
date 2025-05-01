@@ -26,7 +26,8 @@ async def learn(
     svc = Depends(get_service),      # 注入 svc
 ):
     try:
-        state = await svc.run(req.prompt)
+        # 将会话 ID 传递给 service.run 方法
+        state = await svc.run(req.prompt, req.session_id)
 
         learning_goal   = latest_content(state["learning_goal"])
         answer          = latest_content(state["learning_plan"])      # 最后一条计划视为最终回答
@@ -49,6 +50,7 @@ async def learn(
             learning_goal=learning_goal,
             answer=answer,
             exam_questions=exam_questions_obj,
+            session_id=req.session_id,  # 在响应中返回会话 ID
         )
     except Exception as e:
         raise HTTPException(500, str(e))
