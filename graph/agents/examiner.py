@@ -30,7 +30,6 @@ The questions should focus on key concepts and important details.
 - Avoid overly complex or ambiguous questions
 
 **Required Output Format (JSON):**
-```json
 {{
     "questions": [
         {{
@@ -50,7 +49,6 @@ The questions should focus on key concepts and important details.
         }}
     ]
 }}
-```
 
 Please ensure your response is in **valid JSON format** and follows the **exact structure** shown above.
 """
