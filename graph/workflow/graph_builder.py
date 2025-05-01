@@ -118,6 +118,8 @@ async def build_graph(plot_graph: bool = False):
     
     if plot_graph:
         plt.figure(figsize=(10, 10))
+        mermaid_code = graph.get_graph().draw_mermaid()
+        print(mermaid_code)
         img_data = graph.get_graph().draw_mermaid_png()
         img = plt.imread(io.BytesIO(img_data))
         plt.imshow(img)
