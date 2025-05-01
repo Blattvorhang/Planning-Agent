@@ -35,7 +35,7 @@ export default function LearningAgentPage() {
 
   const handleSubmit = async () => {
     if (!learningGoal.trim()) {
-      alert('请输入学习目标');
+      alert('Please enter a learning goal');
       return;
     }
 
@@ -69,7 +69,7 @@ export default function LearningAgentPage() {
       setLearningGoal('');
     } catch (error) {
       console.error('Error:', error);
-      alert('发生错误，请重试');
+      alert('An error occurred, please try again');
     } finally {
       setIsLoading(false);
     }
@@ -77,14 +77,14 @@ export default function LearningAgentPage() {
 
   const checkAnswer = () => {
     if (!currentQuestion || !userAnswer) {
-      alert('请先作答');
+      alert('Please answer the question first');
       return;
     }
 
     const isCorrect = userAnswer.toLowerCase() === currentQuestion.correct_answer.toLowerCase();
     const feedback = isCorrect
-      ? '✅ 正确！'
-      : `❌ 错误，正确答案是：${currentQuestion.correct_answer}`;
+      ? '✅ Correct!'
+      : `❌ Incorrect, the correct answer is: ${currentQuestion.correct_answer}`;
     
     setFeedback(feedback);
     
@@ -105,7 +105,7 @@ export default function LearningAgentPage() {
       setUserAnswer('');
       setFeedback('');
     } else {
-      alert('答题结束！');
+      alert('Quiz completed!');
       setShowExam(false);
       setQuestionIndex(0);
       setCurrentQuestion(null);
@@ -118,10 +118,10 @@ export default function LearningAgentPage() {
         {/* Hero Section */}
         <div className="text-center mb-12 max-w-2xl mx-auto">
           <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent leading-tight">
-            AI 学习规划助手
+            AI Learning Assistant
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300 mx-auto max-w-xl">
-            输入你的学习目标，让 AI 为你定制专属学习计划
+            Enter your learning goals and let AI create a personalized learning plan for you
           </p>
         </div>
         
@@ -133,14 +133,14 @@ export default function LearningAgentPage() {
                 htmlFor="learning-goal" 
                 className="text-xl font-medium mb-4 block text-gray-700 dark:text-gray-200 text-center"
               >
-                学习目标
+                Learning Goal
               </Label>
               <div className="max-w-2xl mx-auto">
                 <Textarea
                   id="learning-goal"
                   value={learningGoal}
                   onChange={(e) => setLearningGoal(e.target.value)}
-                  placeholder="请输入你想学习的内容或技能..."
+                  placeholder="Enter what you want to learn or skills you want to develop..."
                   className="min-h-[120px] text-lg resize-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 w-full"
                 />
               </div>
@@ -155,12 +155,12 @@ export default function LearningAgentPage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="h-6 w-6 animate-spin" />
-                    <span>生成中...</span>
+                    <span>Generating...</span>
                   </>
                 ) : (
                   <>
                     <Send className="h-6 w-6" />
-                    <span>发送</span>
+                    <span>Send</span>
                   </>
                 )}
               </Button>
@@ -178,7 +178,7 @@ export default function LearningAgentPage() {
                     }`}
                   >
                     <div className="font-medium mb-3 text-base text-gray-600 dark:text-gray-400">
-                      {msg.role === 'user' ? '你：' : 'AI：'}
+                      {msg.role === 'user' ? 'You:' : 'AI:'}
                     </div>
                     <div className="prose prose-lg dark:prose-invert max-w-none">
                       <ReactMarkdown>
@@ -204,7 +204,7 @@ export default function LearningAgentPage() {
           {showExam && currentQuestion && (
             <Card className="p-8 shadow-lg bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm sticky top-24">
               <div className="flex items-center justify-between mb-8">
-                <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">练习题</h2>
+                <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">Practice Quiz</h2>
                 <span className="px-6 py-3 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-lg font-medium">
                   {questionIndex + 1}/{questions.length}
                 </span>
@@ -246,7 +246,7 @@ export default function LearningAgentPage() {
                   <Input
                     value={userAnswer}
                     onChange={(e) => setUserAnswer(e.target.value)}
-                    placeholder="请输入你的答案..."
+                    placeholder="Enter your answer..."
                     className="text-lg p-6 focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700"
                   />
                 )}
@@ -268,14 +268,14 @@ export default function LearningAgentPage() {
                     onClick={checkAnswer}
                     className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-lg py-6 h-auto"
                   >
-                    提交答案
+                    Submit Answer
                   </Button>
                   {feedback && (
                     <Button 
                       onClick={nextQuestion}
                       className="flex-1 bg-gray-600 hover:bg-gray-700 text-white text-lg py-6 h-auto"
                     >
-                      下一题
+                      Next Question
                     </Button>
                   )}
                 </div>
@@ -286,4 +286,4 @@ export default function LearningAgentPage() {
       </div>
     </div>
   );
-} 
+}
