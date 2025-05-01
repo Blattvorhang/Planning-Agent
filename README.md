@@ -4,46 +4,86 @@
 
 ## Project Overview
 
-**Planning-Agent** is an intelligent learning planning agent system based on **FastAPI**. Its main functions include:
-- Investigating user basic information (user_portrait)
-- Receiving user learning requests (prompt)
-- Generating **personalized** learning methodology based on user portrait:
-  - Generating learning goals (`learning_goal`)
-  - Creating learning plans (`learning_plan`)
-  - Providing test questions (`exam_questions`)
+**Planning-Agent** is an intelligent learning assistant system built with **FastAPI**. It provides personalized learning planning based on user profiles. Core features include:
+
+- Collecting basic user information (`user_portrait`)
+- Receiving user learning prompts (`prompt`)
+- Generating **personalized** study paths, including:
+  - Learning goals (`learning_goal`)
+  - Detailed learning plans (`learning_plan`)
+  - Custom test questions (`exam_questions`)
 
 ## Environment Setup
-To clone the entire repository, you will need to run the following command:
+
+### Backend
+
+To clone the entire repository including submodules, run:
+
 ```bash
-git clone https://github.com/Blattvorhang/Planning-Agent.git --recursive
+git clone --recursive https://github.com/Blattvorhang/Planning-Agent.git
 ```
 
-If you forgot to add the parameter `--recursive`, you should run
+If you've already cloned the repo without `--recursive`, initialize the submodules manually:
+
 ```bash
 git submodule update --init --recursive
 ```
 
-Then install required packages:
+Install the required Python packages:
+
 ```bash
 pip install -r requirements.txt
 uv pip install -e "./graph/tools/arxiv-mcp-server/[test]"
 ```
 
-Finally, you need to fill out your personal LLM API key in the `.env` file, as shown in [`.env.example`](./.env.example).
+Then, configure your LLM API key in the `.env` file. Use [`.env.example`](./.env.example) as a reference.
 
-## FastAPI API Description
+### Frontend
 
-### Core API
+Install dependencies by running:
 
-#### Learning Planning Endpoint
-- **Path:** `POST /api/learn`
+```bash
+cd frontend
+npm install
+```
+
+## Running the Project
+
+Currently, the project supports local deployment only. Backend runs at `localhost:8000`, and the frontend is available at `localhost:3000`.
+
+### Start the Backend
+
+You can launch the FastAPI backend using either of the following commands:
+
+```bash
+uvicorn main:app --reload
+# or
+python main.py
+```
+
+### Start the Frontend
+
+Run:
+
+```bash
+cd frontend && npm run dev
+```
+
+## API Reference
+
+### Learning Plan Endpoint
+
+- **Endpoint:** `POST /api/learn`
 - **Request Body:**
+
   ```json
   {
     "prompt": "Description of the learning goal"
   }
   ```
+
 - **Response:**
+
   ```json
   {
     "learning_goal": "Generated learning goal",
@@ -54,63 +94,37 @@ Finally, you need to fill out your personal LLM API key in the `.env` file, as s
 
 ## Project Structure
 
-```plaintext
-Planning-Agent/
-├── app/
-│   ├── api.py        # FastAPI route definitions
-│   ├── deps.py       # Dependency injection
-│   └── models.py     # Data models
-├── main.py           # Entry point for the FastAPI app
-└── tools/            # Tool integrations
-```
-
-## FastAPI Usage Guide
-
-### 1. Create the FastAPI Application  
-Initialize the app in `main.py`:
-
-```python
-from fastapi import FastAPI
-from app.api import router as learn_router
-
-app = FastAPI(
-    title="Learning Agent Service",
-    docs_url="/docs"  # Auto-generated API documentation
-)
-app.include_router(learn_router, prefix="/api")
-```
-
-### 2. Define the Routes  
-Define API endpoints in `app/api.py`:
-
-```python
-from fastapi import APIRouter
-
-router = APIRouter()
-
-@router.post("/learn")
-async def learn_endpoint(request: LearnRequest):
-    # Processing logic
-    return response
-```
-
-### 3. Run the Service  
-Use `uvicorn` to run the service:
-
 ```bash
-uvicorn main:app --reload
+Planning-Agent/
+├── LICENSE
+├── README.md
+├── README_zh.md
+├── app
+│   ├── README.md
+│   ├── __init__.py
+│   ├── api.py         # FastAPI route definitions
+│   ├── deps.py        # Dependency injection
+│   ├── models.py      # Data models
+│   ├── question.py    # Data structure for questions
+│   └── service.py     # Core service logic
+├── assets
+│   └── demo.mp4
+├── chatbot
+├── frontend
+├── graph
+│   ├── agents
+│   ├── tools          # Tool integrations
+│   └── workflow
+├── main.py            # Entry point for the FastAPI app
+└── requirements.txt   # Dependency requirements
 ```
 
-Visit the API documentation at:
+## Extended Features
 
-```plaintext
-http://localhost:8000/docs
-```
+This project integrates with the `arxiv-mcp-server` tool, enabling:
 
-## Extended Features  
-The project integrates with the `arxiv-mcp-server`, a tool for:
-- Searching academic papers  
-- Downloading paper content  
-- Analyzing research materials  
+- Academic paper search  
+- Paper content downloads  
+- Research material analysis  
 
-For usage instructions, refer to `tools/arxiv-mcp-server/README.md`.
+For detailed usage, refer to `tools/arxiv-mcp-server/README.md`.
