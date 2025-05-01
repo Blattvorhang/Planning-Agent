@@ -10,23 +10,27 @@ class ExaminerAgent(ReActAgent):
         # 从 state 中获取学习计划
         learning_plan = state['learning_plan']
         # 构建请求模型的提示语
-        prompt = f"""你是一个专业的考试出题人，你的任务是根据给定的学习计划或者对用户的问题的回答设计一系列的小练习来帮助学习者巩固知识。你需要注意输出的语言应该和学习计划的语言保持一致。
-Given the learning plan/answer: {learning_plan}, your task is to design a small set of practice questions to help reinforce the learner's knowledge. 
+        prompt = f"""
+**You are a professional exam question creator. Your task is to design a small set of practice exercises based on the given learning plan or the answer to a user question to help the learner consolidate their knowledge.**  
+Make sure that the language used in the output matches the language of the original learning plan.
+
+Given the learning plan/answer: {learning_plan}, your task is to design a small set of practice questions to help reinforce the learner's knowledge.  
 The questions should focus on key concepts and important details.
 
-**Instructions:**
-- Generate 3-5 questions in total
-- Generate mainly **multiple-choice questions** (single-choice) and **fill-in-the-blank questions**
-- For multiple-choice questions:
-  - Provide 3-5 answer options
-  - Clearly indicate which option is correct
-- For fill-in-the-blank questions:
-  - Provide the question text with a blank space (use "_____")
-  - Provide the correct answer
-- Questions should be concise, relevant, and cover different aspects of the topic
-- Do not generate overly complicated or ambiguous questions
+**Instructions:**  
+- Generate **3 to 5 questions** in total  
+- Focus primarily on **multiple-choice questions** (single-answer) and **fill-in-the-blank questions**  
+- For multiple-choice questions:  
+  - Provide **3 to 5 answer options**  
+  - **Clearly indicate** which option is correct  
+- For fill-in-the-blank questions:  
+  - Write the question with a blank (use "_____")  
+  - Provide the correct answer  
+- Questions should be **concise**, **relevant**, and cover **different aspects** of the topic  
+- Avoid overly complex or ambiguous questions
 
 **Required Output Format (JSON):**
+```json
 {{
     "questions": [
         {{
@@ -46,8 +50,9 @@ The questions should focus on key concepts and important details.
         }}
     ]
 }}
+```
 
-Please ensure your response is in valid JSON format and follows the exact structure shown above.
+Please ensure your response is in **valid JSON format** and follows the **exact structure** shown above.
 """
         # 调用模型生成练习题
         result = await self.agent.ainvoke({"messages": prompt})

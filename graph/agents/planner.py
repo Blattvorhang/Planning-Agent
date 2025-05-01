@@ -24,7 +24,7 @@ class PlannerAgent(ReActAgent):
             state['learning_plan'] = [result['messages'][1].content]
         else:
             # 初次生成学习目标和学习计划
-            goal_prompt = f"""你是一个智能学习助手，负责根据用户的输入分析和提炼他们的学习目标，并细化目标中的关键内容。
+            goal_prompt_zh = f"""你是一个智能学习助手，负责根据用户的输入分析和提炼他们的学习目标，并细化目标中的关键内容。
 任务要求如下：
 - 从用户输入中提取并明确学习目标。
 - 判断哪些目标是显性目标（直接提到的）和隐性目标（通过推理或问题提炼出来的）。
@@ -50,8 +50,39 @@ class PlannerAgent(ReActAgent):
    - 类型：隐性目标（推测用户希望学习机器学习）
 
 用户输入：{user_input}"""
+            
+            goal_prompt = f"""
+**You are an intelligent learning assistant. Your task is to analyze the user's input, extract and clarify their learning goals, and break down key components within those goals.**
 
-            plan_prompt =  f"""你是一个教育助手，负责根据用户的输入生成学习计划，或者在用户提出问题时进行知识讲解。
+**Task Requirements:**  
+- Extract and clearly define the learning goals from the user's input.  
+- Distinguish between explicit goals (directly mentioned) and implicit goals (inferred or derived from the context).  
+- Use goal analysis to help guide the user's learning path or suggest areas for further exploration.
+
+**Output Requirements:**  
+- Identify one or more specific and well-defined learning goals.  
+- Label each goal with its type: **explicit** or **implicit**.  
+- If implicit goals are inferred, provide reasonable justification based on the context.  
+- Use the following structured format:
+
+**Example Input:**  
+“I want to master Python programming, especially object-oriented programming and data analysis. I also want to understand how to do machine learning with Python.”
+
+**Example Output:**  
+1. Learning Goal: Master the basics of Python programming, including syntax, data structures, and control flow.  
+   - Type: Explicit  
+2. Learning Goal: Understand Python object-oriented programming (OOP) concepts such as classes, inheritance, and encapsulation.  
+   - Type: Explicit  
+3. Learning Goal: Learn how to perform data analysis using Python, including tools like Pandas and Numpy.  
+   - Type: Implicit (inferred interest in specific tools for data analysis)  
+4. Learning Goal: Understand how to apply Python to machine learning, including learning algorithms and frameworks like Scikit-learn.  
+   - Type: Implicit (inferred desire to learn ML techniques and tools)
+
+**User Input:**  
+{user_input}
+"""
+
+            plan_prompt_zh =  f"""你是一个教育助手，负责根据用户的输入生成学习计划，或者在用户提出问题时进行知识讲解。
 
 任务要求如下：
 - 根据用户的学习目标生成详细的学习计划，涵盖所需的知识点和学习路径。
@@ -100,6 +131,61 @@ import pandas as pd
 data = pd.DataFrame({{'A': [1, 2, None], 'B': [4, None, 6]}})
 data.fillna(0, inplace=True)  # 填充缺失值为 0
 用户输入：{user_input}"""
+            
+            plan_prompt = f"""
+**You are an educational assistant responsible for generating learning plans based on user input or providing knowledge explanations when users ask questions.**
+
+**Task Requirements:**  
+- Generate a detailed learning plan based on the user's learning goal, covering the required knowledge points and learning path.  
+- When the user asks a question, provide a clear and relevant explanation to help them understand a concept or technique.  
+- For learning plans, ensure the output includes goals, step-by-step learning tasks, recommended resources, and time allocation.
+
+**Output Requirements:**  
+- If the task is to generate a learning plan, use the following format:  
+  1. **Learning Goal:**  
+     - Goal description  
+     - Learning steps (task breakdown)  
+     - Recommended resources (e.g., courses, books, tools)  
+     - Suggested time allocation  
+- If the task is answering a question, provide a clear, detailed, and easy-to-understand explanation directly.
+
+**Example Input:**  
+"I want to learn how to do data analysis using Python, and I need to master Pandas and Numpy."
+
+**Example Output:**  
+**Learning Plan:**  
+1. **Learning Goal:** Master the Pandas data analysis library  
+   - **Learning Steps:**  
+     - Learn Pandas data structures (Series, DataFrame)  
+     - Practice basic operations: data cleaning, handling missing values, data selection  
+     - Learn data visualization with Pandas (integration with Matplotlib)  
+   - **Recommended Resources:**  
+     - *Python for Data Analysis* (book)  
+     - Online tutorials (e.g., Pandas course on Coursera)  
+   - **Time Suggestion:** 2 weeks
+
+2. **Learning Goal:** Master the Numpy numerical computation library  
+   - **Learning Steps:**  
+     - Learn basic array operations and indexing in Numpy  
+     - Explore advanced features: linear algebra, matrix operations, broadcasting  
+   - **Recommended Resources:**  
+     - *Official NumPy Documentation*  
+     - Online tutorials (e.g., Numpy basics on Kaggle)  
+   - **Time Suggestion:** 1 week
+
+**Question Answering:**  
+**Question:** How do you handle missing values in Python?  
+- In Python, the Pandas library is commonly used to handle missing values. You can use the `fillna()` method to fill in missing values or `dropna()` to remove rows or columns with missing data.  
+- Example code:  
+```python
+import pandas as pd  
+data = pd.DataFrame({{'A': [1, 2, None], 'B': [4, None, 6]}})
+data.fillna(0, inplace=True)  # Fill missing values with 0  
+```
+
+**User Input:** {user_input}
+"""
+            
             goal_result = await self.agent.ainvoke({"messages": goal_prompt})
             plan_result = await self.agent.ainvoke({"messages": plan_prompt})
             logger.info(f"Planner - goal:{goal_result}")
