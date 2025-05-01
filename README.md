@@ -6,7 +6,7 @@
 
 **Planning-Agent** is an intelligent learning assistant system built with **FastAPI**. It provides personalized learning planning based on user profiles. Core features include:
 
-- Collecting basic user information (`user_portrait`)
+- Collecting basic user information (`user_portrait`) (not implemented yet)
 - Receiving user learning prompts (`prompt`)
 - Generating **personalized** study paths, including:
   - Learning goals (`learning_goal`)
