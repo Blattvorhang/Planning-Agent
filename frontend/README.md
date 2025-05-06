@@ -39,11 +39,11 @@ Make sure your FastAPI backend is running at http://localhost:8000.
 
 
 ## 🧩 Key Features
-•✅ AI-generated learning goals and explanations
-•✅ Markdown rendering with syntax highlighting
-•✅ Multiple-choice and fill-in-the-blank quiz support
-•✅ Instant feedback with correct answer display
-•✅ Chat history with smooth UI transitions
+- ✅ AI-generated learning goals and explanations
+- ✅ Markdown rendering with syntax highlighting
+- ✅ Multiple-choice and fill-in-the-blank quiz support
+- ✅ Instant feedback with correct answer display
+- ✅ Chat history with smooth UI transitions
 
 
 ## 🔌 API Details
@@ -97,13 +97,13 @@ useTypewriter	Typing animation (e.g. streaming answer rendering)
 ⸻
 
 📌 TODO
-•Add progress indicator and scoring
-•Support question bookmarking / error review
-•fix some bug
-•support streaming
+- Add progress indicator and scoring
+- Support question bookmarking / error review
+- fix some bug
+- support streaming
 
 ⸻
 
 🤝 Author
-•🧑‍💻 Frontend by: huan-linwww
+- 🧑‍💻 Frontend by: huan-linwww
 
