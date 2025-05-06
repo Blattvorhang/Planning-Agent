@@ -1,48 +1,109 @@
-# AI Learning Planner Frontend
 
-这是AI学习规划助手的前端项目，使用React + Next.js + Tailwind CSS + shadcn/ui构建。
+# 🧠 Learning Agent Frontend
 
-## 开发环境要求
+An AI-powered learning assistant frontend built with **Next.js + TypeScript + Tailwind CSS**. Supports learning goal generation, markdown-based explanations, and interactive quizzes (multiple choice + fill-in-the-blank).
 
-- Node.js 18.0.0 或更高版本
-- npm 9.0.0 或更高版本
+---
 
-## 安装依赖
+## 📁 Project Structure
 
 ```bash
-cd frontend
-npm install
+src/
+├── app/                     # App Router pages and layout
+│   ├── layout.tsx
+│   ├── page.tsx             # Main entry point (chat + input + quiz)
+│   └── globals.css
+├── components/
+│   ├── chat/                # Chat components (ChatArea, MessageList, Input)
+│   ├── question/            # Quiz components (MultipleChoice, FillInTheBlank)
+│   ├── QuizController/      # Central quiz flow controller
+│   ├── ui/                  # Shared UI components (Button, Textarea, etc.)
+├── hooks/
+│   └── useTypewriter.ts     # Typing effect hook
+├── lib/
+│   ├── mapServerQuestions.ts# Adapts backend quiz data to frontend format
+│   └── utils.ts             # Utility functions
+├── types/
+│   └── index.ts             # Global type definitions
+
 ```
-
-## 开发运行
-
+## 🚀 Getting Started
 ```bash
+# Install dependencies
+npm install
+
+# Start the development server (default: http://localhost:3000)
 npm run dev
 ```
+Make sure your FastAPI backend is running at http://localhost:8000.
 
-默认情况下，开发服务器将在 http://localhost:3000 启动。
 
-## 构建生产版本
+## 🧩 Key Features
+•✅ AI-generated learning goals and explanations
+•✅ Markdown rendering with syntax highlighting
+•✅ Multiple-choice and fill-in-the-blank quiz support
+•✅ Instant feedback with correct answer display
+•✅ Chat history with smooth UI transitions
 
-```bash
-npm run build
-npm start
+
+## 🔌 API Details
+
+Endpoint
 ```
-
-## 项目结构
-
+POST /api/learn
 ```
-frontend/
-├── src/
-│   ├── app/              # Next.js 应用页面
-│   ├── components/       # UI组件
-│   ├── hooks/           # 自定义Hooks
-│   ├── lib/             # 工具函数
-│   └── types/           # TypeScript类型定义
-├── public/              # 静态资源
-└── package.json         # 项目配置文件
+Request Body
 ```
+{
+  "prompt": "What is a string?",
+  "user_portrait": {
+    "metadata": {},
+    "learning_profile": {}
+  }
+}
+```
+Response Structure
+```
+{
+  "learning_goal": "...",
+  "answer": "...",
+  "exam_questions": {
+    "questions": [
+      {
+        "type": "multiple_choice" | "fill_in_blank",
+        "question_text": "...",
+        "options": [...],           // only for multiple choice
+        "correct_answer": "..."
+      }
+    ]
+  }
+}
+```
+The questions are adapted to frontend format 
+using ```lib/mapServerQuestions.ts.```
 
-## 后端API
 
-后端API服务运行在 http://localhost:8000，前端项目已配置代理，可以直接使用相对路径（如 `/api/learn`）访问后端接口。 
+
+🛠 Development Tips
+
+Module	Description
+QuizController	Controls quiz flow, feedback, and navigation
+mapServerQuestions	Maps backend question format to frontend structure
+types/index.ts	Centralized types for quiz, chat, and API data
+useTypewriter	Typing animation (e.g. streaming answer rendering)
+
+
+
+⸻
+
+📌 TODO
+•Add progress indicator and scoring
+•Support question bookmarking / error review
+•fix some bug
+•support streaming
+
+⸻
+
+🤝 Author
+•🧑‍💻 Frontend by: huan-linwww
+
